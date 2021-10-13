@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile
+          file: {context}/Dockerfile
           build-args: METASHAPE_VER=$METASHAPE_VER, METASHAPE_WHEEL=$METASHAPE_WHEEL
           tags: ghcr.io/auscalabledronecloud/metashape:latest
           push: true
@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile.server
+          file: {context}/Dockerfile.server
           build-args: METASHAPE_VER=$METASHAPE_VER
           tags: ghcr.io/auscalabledronecloud/metashape-server:latest
           push: true
@@ -48,6 +48,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile.license
+          file: {context}/Dockerfile.license
           tags: ghcr.io/auscalabledronecloud/metashape-license-server:latest
           push: true
