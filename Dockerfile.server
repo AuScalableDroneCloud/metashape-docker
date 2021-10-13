@@ -1,0 +1,28 @@
+#Ubuntu LTS
+FROM ubuntu:20.04
+
+# Install pip for python3, mesa deb for metashape, nodejs
+RUN apt-get update && \
+    apt-get install -y curl libglu1-mesa libgl1-mesa-glx libxi6 libsm6 libfontconfig libxrender1 libqt5x11extras5 libgomp1 libquadmath0 && \
+    apt-get update && \
+    rm -rf /var/lib/apt/lists/*
+
+# add metashape user and switch to it
+RUN adduser --disabled-password --gecos '' metashape
+USER metashape
+
+ENV METASHAPE_VER=1_7_5
+
+# set The workdir
+WORKDIR /home/metashape
+
+#Install metashape desktop
+RUN curl -L https://s3-eu-west-1.amazonaws.com/download.agisoft.com/metashape-pro_${METASHAPE_VER}_amd64.tar.gz --output metashape.tar.gz && \
+    tar zxf metashape.tar.gz && \
+    rm metashape.tar.gz
+
+# expose ports for server
+EXPOSE 5840
+
+CMD ["/home/metashape/metashape-pro/metashape", "--server", "--host", "0.0.0.0"]
+

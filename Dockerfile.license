@@ -1,0 +1,27 @@
+#Ubuntu LTS
+FROM ubuntu:20.04
+
+# Install curl
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get update && \
+    rm -rf /var/lib/apt/lists/*
+
+# add metashape user and switch to it
+RUN adduser --disabled-password --gecos '' metashape
+USER metashape
+
+# set The workdir
+WORKDIR /home/metashape
+
+#Install metashape license server
+RUN curl -L http://download.agisoft.com/agisoft-rlm-server_amd64.tar.gz --output agisoft-rlm-server.tar.gz && \
+    tar zxf agisoft-rlm-server.tar.gz && \
+    rm agisoft-rlm-server.tar.gz
+
+# expose ports for licensing (only for floating lic)
+# admin interface (5054) needs to be opened to configure but not exposed to the internet
+EXPOSE 5053 5054
+
+CMD ["/home/metashape/agisoft-rlm-server/rlm"]
+
