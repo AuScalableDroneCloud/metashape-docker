@@ -32,7 +32,11 @@ RUN curl -LOJ https://s3-eu-west-1.amazonaws.com/download.agisoft.com/${METASHAP
 ENV agisoft_LICENSE="/home/metashape/metashape-pro/" \
     QT_QPA_PLATFORM="offscreen"
 
-COPY monash.lic /home/metashape/metashape-pro/
+ENV METASHAPE_SERVER "metashape.default.svc.cluster.local"
+ENV METASHAPE_ROOT "/mnt/dronedrive"
 
-CMD ["/home/metashape/metashape-pro/metashape", "--node", "--host", "metashape.default.svc.cluster.local", "--root", "/mnt/dronedrive", "--capability", "any", "--platform", "offscreen", "--gpu_mask", "1", "--cpu_enable", "0"]
+#Create .lic file with server address
+RUN echo "HOST $METASHAPE_SERVER any 5053" > /home/metashape/metashape-pro/server.lic
+
+CMD ["/home/metashape/metashape-pro/metashape", "--node", "--host", "$METASHAPE_SERVER", "--root", "$METASHAPE_ROOT", "--capability", "any", "--platform", "offscreen", "--gpu_mask", "1", "--cpu_enable", "0"]
 
