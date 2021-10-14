@@ -23,5 +23,5 @@ RUN curl -L http://download.agisoft.com/agisoft-rlm-server_amd64.tar.gz --output
 # admin interface (5054) needs to be opened to configure but not exposed to the internet
 EXPOSE 5053 5054
 
-CMD ["/home/metashape/agisoft-rlm-server/rlm"]
+CMD /home/metashape/agisoft-rlm-server/rlm
 

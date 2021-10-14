@@ -35,8 +35,6 @@ ENV agisoft_LICENSE="/home/metashape/metashape-pro/" \
 ENV METASHAPE_SERVER "metashape.default.svc.cluster.local"
 ENV METASHAPE_ROOT "/mnt/dronedrive"
 
-#Create .lic file with server address
-RUN echo "HOST $METASHAPE_SERVER any 5053" > /home/metashape/metashape-pro/server.lic
-
-CMD ["/home/metashape/metashape-pro/metashape", "--node", "--host", "$METASHAPE_SERVER", "--root", "$METASHAPE_ROOT", "--capability", "any", "--platform", "offscreen", "--gpu_mask", "1", "--cpu_enable", "0"]
+#Create .lic file with server address and launch
+CMD cd /home/metashape/metashape-pro/; echo "HOST $METASHAPE_SERVER any 5053" > server.lic ; cat server.lic; ./metashape --node --host $METASHAPE_SERVER --root $METASHAPE_ROOT --capability any --platform offscreen --gpu_mask 1 --cpu_enable 0
 

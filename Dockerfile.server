@@ -24,5 +24,5 @@ RUN curl -L https://s3-eu-west-1.amazonaws.com/download.agisoft.com/metashape-pr
 # expose ports for server
 EXPOSE 5840
 
-CMD ["/home/metashape/metashape-pro/metashape", "--server", "--host", "0.0.0.0"]
+CMD /home/metashape/metashape-pro/metashape --server --host 0.0.0.0
 
