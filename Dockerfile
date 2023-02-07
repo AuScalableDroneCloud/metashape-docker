@@ -1,21 +1,18 @@
-#Ubuntu 18.04 with cuda, vullkan
-FROM nvidia/vulkan:1.1.121
+#Ubuntu 20.04 with cuda 11.4, vullkan 1.3
+#https://gitlab.com/nvidia/container-images/vulkan/-/blob/master/docker/Dockerfile.ubuntu
+FROM nvidia/vulkan:1.3-470
 
 # Install pip for python3, mesa deb for metashape, nodejs
 RUN apt-get update && \
     apt-get install -y python3-pip curl libglu1-mesa libgl1-mesa-glx libxi6 libsm6 libfontconfig libxrender1 libqt5x11extras5 && \
-    curl https://packages.lunarg.com/lunarg-signing-key-pub.asc | apt-key add - && \
-    curl -L http://packages.lunarg.com/vulkan/lunarg-vulkan-bionic.list --output /etc/apt/sources.list.d/lunarg-vulkan-bionic.list && \
-    apt-get update && \
-    apt-get install -y vulkan-sdk && \
     rm -rf /var/lib/apt/lists/*
 
 # add metashape user and switch to it
 RUN adduser --disabled-password --gecos '' metashape
 USER metashape
 
-ENV METASHAPE_VER=1_7_5 \
-    METASHAPE_WHEEL=Metashape-1.7.5-cp35.cp36.cp37.cp38-abi3-linux_x86_64.whl
+ENV METASHAPE_VER=1_8_4 \
+    METASHAPE_WHEEL=Metashape-1.8.4-cp35.cp36.cp37.cp38-abi3-linux_x86_64.whl
 
 # set The workdir
 WORKDIR /home/metashape
