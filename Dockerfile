@@ -7,7 +7,7 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86
     rm /etc/apt/sources.list.d/cuda.list && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get update && \
-    apt-get install -y python3-pip curl libglu1-mesa libgl1-mesa-glx libxi6 libsm6 libfontconfig libxrender1 libqt5x11extras5 && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pip curl libglu1-mesa libgl1-mesa-glx libxi6 libsm6 libfontconfig libxrender1 libqt5x11extras5 && \
     rm -rf /var/lib/apt/lists/*
 
 # add metashape user and switch to it
