@@ -3,7 +3,9 @@
 FROM nvidia/vulkan:1.3-470
 
 # Install pip for python3, mesa deb for metashape, nodejs
-RUN apt-get update && \
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && \
+    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    apt-get update && \
     apt-get install -y python3-pip curl libglu1-mesa libgl1-mesa-glx libxi6 libsm6 libfontconfig libxrender1 libqt5x11extras5 && \
     rm -rf /var/lib/apt/lists/*
 
