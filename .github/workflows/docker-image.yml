@@ -39,7 +39,7 @@ jobs:
           tags: ghcr.io/auscalabledronecloud/metashape:latest
           push: true
 
-      - name: Push metashape-server imge to GitHub Packages
+      - name: Push metashape-server image to GitHub Packages
         uses: docker/build-push-action@v2
         with:
           file: ./Dockerfile.server
